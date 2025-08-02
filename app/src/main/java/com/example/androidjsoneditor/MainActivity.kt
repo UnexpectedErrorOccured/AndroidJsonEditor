@@ -34,14 +34,12 @@ class MainActivity : AppCompatActivity(), EditNodeDialogFragment.EditNodeDialogL
     private var displayNodes = mutableListOf<DataNode>()
     private var currentFileType: FileType = FileType.UNKNOWN
 
-    // 파일 열기 결과를 처리하는 ActivityResultLauncher
     private val openFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.also { uri ->
                 try {
                     val content = contentResolver.openInputStream(uri)?.bufferedReader()?.use(BufferedReader::readText)
                     if (content != null) {
-                        // 파일 종류 판별
                         val trimmedContent = content.trim()
                         currentFileType = when {
                             trimmedContent.startsWith("{") || trimmedContent.startsWith("[") -> FileType.JSON
@@ -54,6 +52,8 @@ class MainActivity : AppCompatActivity(), EditNodeDialogFragment.EditNodeDialogL
                         }
 
                         rootNodes = DataParser.parse(content).toMutableList()
+                        // 파일을 연 후, 모든 노드를 접힌 상태로 만듭니다.
+                        collapseAllNodes(rootNodes)
                         refreshDisplayList()
                     }
                 } catch (e: Exception) {
@@ -64,12 +64,10 @@ class MainActivity : AppCompatActivity(), EditNodeDialogFragment.EditNodeDialogL
         }
     }
 
-    // 파일 저장 결과를 처리하는 ActivityResultLauncher
     private val saveFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.also { uri ->
                 try {
-                    // 파일 종류에 따라 다른 직렬화 함수 호출
                     val contentToSave = when (currentFileType) {
                         FileType.JSON -> DataSerializer.toJsonString(rootNodes)
                         FileType.XML -> DataSerializer.toXmlString(rootNodes)
@@ -82,7 +80,7 @@ class MainActivity : AppCompatActivity(), EditNodeDialogFragment.EditNodeDialogL
                     contentResolver.openOutputStream(uri)?.use { outputStream ->
                         outputStream.write(contentToSave.toByteArray())
                     }
-                    Toast.makeText(this, "파일이 저장되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "파일이 정상적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
                     e.printStackTrace()
                     showErrorDialog("파일을 저장하는 중 오류가 발생했습니다.\n\n오류: ${e.localizedMessage}")
@@ -96,31 +94,40 @@ class MainActivity : AppCompatActivity(), EditNodeDialogFragment.EditNodeDialogL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Toast.makeText(this, "setContentView 성공", Toast.LENGTH_SHORT).show()
-
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        Toast.makeText(this, "툴바 초기화 성공", Toast.LENGTH_SHORT).show()
         recyclerView = findViewById(R.id.dataRecyclerView)
-        if (recyclerView == null) {
-            // 만약 이 토스트가 뜬다면, findViewById가 실패한 것입니다.
-            Toast.makeText(this, "오류: 리사이클러뷰를 찾지 못했습니다!", Toast.LENGTH_LONG).show()
-        } else {
-            // 만약 이 토스트가 뜬다면, findViewById는 성공한 것입니다.
-            Toast.makeText(this, "성공: 리사이클러뷰를 찾았습니다!", Toast.LENGTH_LONG).show()
+        // 어댑터에 displayNodes를 전달합니다.
+        adapter = DataNodeAdapter(displayNodes)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
-            adapter = DataNodeAdapter(displayNodes)
-            recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = adapter
-
-            // 이 토스트가 보인 후에 앱이 튕긴다면, 범인은 100% registerForContextMenu 입니다.
-            Toast.makeText(this, "이제 메뉴를 등록합니다...", Toast.LENGTH_SHORT).show()
-            registerForContextMenu(recyclerView)
-        }
-
+        registerForContextMenu(recyclerView)
     }
 
+    /**
+     * 모든 노드를 재귀적으로 순회하며 접힌 상태로 만드는 함수
+     */
+    private fun collapseAllNodes(nodes: List<DataNode>) {
+        nodes.forEach { node ->
+            if (node.children.isNotEmpty()) {
+                node.isExpanded = false
+                collapseAllNodes(node.children)
+            }
+        }
+    }
+
+    /**
+     * 화면에 보여줄 리스트를 갱신하는 함수 (최상위 노드만 표시)
+     */
+    private fun refreshDisplayList() {
+        displayNodes.clear()
+        displayNodes.addAll(rootNodes)
+        adapter.notifyDataSetChanged()
+    }
+
+    // ... (이하 다른 함수들은 이전과 동일)
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
         return true
@@ -157,11 +164,10 @@ class MainActivity : AppCompatActivity(), EditNodeDialogFragment.EditNodeDialogL
     }
 
     private fun saveFile() {
-        // 파일 종류에 따라 기본 저장 형식과 파일명을 동적으로 변경
         val (defaultMimeType, defaultFileName) = when (currentFileType) {
             FileType.JSON -> "application/json" to "untitled.json"
             FileType.XML -> "application/xml" to "untitled.xml"
-            FileType.UNKNOWN -> "text/plain" to "untitled.txt" // 데이터가 없을 경우 기본값
+            FileType.UNKNOWN -> "text/plain" to "untitled.txt"
         }
 
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -253,20 +259,5 @@ class MainActivity : AppCompatActivity(), EditNodeDialogFragment.EditNodeDialogL
             }
         }
         return false
-    }
-
-    private fun refreshDisplayList() {
-        displayNodes.clear()
-        addNodesToDisplayList(rootNodes)
-        adapter.notifyDataSetChanged()
-    }
-
-    private fun addNodesToDisplayList(nodes: List<DataNode>) {
-        for (node in nodes) {
-            displayNodes.add(node)
-            if (node.isExpanded && node.children.isNotEmpty()) {
-                addNodesToDisplayList(node.children)
-            }
-        }
     }
 }

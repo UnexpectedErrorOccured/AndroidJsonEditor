@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!--
+      기존: parent="Theme.Material3.DayNight"
+      수정: parent="Theme.Material3.DayNight.NoActionBar"
+      .NoActionBar를 추가하여 기본 상단 바가 생성되지 않도록 합니다.
+    -->
+    <style name="Base.Theme.AndroidJSONEditor" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.AndroidJSONEditor" parent="Base.Theme.AndroidJSONEditor" />
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/item_data_node.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:background="?attr/selectableItemBackground">
+
+    <Space
+        android:id="@+id/indentation_space"
+        android:layout_width="0dp"
+        android:layout_height="1dp" />
+
+    <ImageView
+        android:id="@+id/expand_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        tools:src="@drawable/ic_arrow_down"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/expand_icon_description" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/node_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="name:" />
+
+            <!-- 수정된 부분: XML 속성 값 내의 따옴표는 &quot; 로 이스케이프 처리합니다. -->
+            <TextView
+                android:id="@+id/node_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#008577"
+                android:layout_marginStart="8dp"
+                tools:text="&quot;DataEditor&quot;" />
+        </LinearLayout>
+
+        <!-- 수정된 부분: XML 속성 값 내의 따옴표는 &quot; 로 이스케이프 처리합니다. -->
+        <TextView
+            android:id="@+id/node_attributes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#00529B"
+            android:textStyle="italic"
+            android:layout_marginTop="2dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;" />
+    </LinearLayout>
+
+</LinearLayout>

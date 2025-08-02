@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/menu/node_context_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 선택된 노드의 이름(Key)이나 값을 수정하는 메뉴 -->
+    <item android:id="@+id/menu_edit"
+        android:title="@string/menu_edit" />
+
+    <!-- 선택된 노드의 자식으로 새로운 노드를 추가하는 메뉴 -->
+    <item android:id="@+id/menu_add_child"
+        android:title="@string/menu_add_child" />
+
+    <!-- 선택된 노드와 그 모든 하위 노드를 삭제하는 메뉴 -->
+    <item android:id="@+id/menu_delete"
+        android:title="@string/menu_delete" />
+
+</menu>

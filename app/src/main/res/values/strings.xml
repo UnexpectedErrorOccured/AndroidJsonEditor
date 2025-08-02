@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AndroidJsonEditior</string>
+    <!-- Edit Node Dialog용 문자열 -->
+    <string name="node_name_hint">이름 (Key / Tag)</string>
+    <string name="node_value_hint">값 (Value)</string>
+    <string name="data_type_label">데이터 타입</string>
+    <string name="dialog_title_edit_node">노드 수정</string>
+    <string name="dialog_title_add_child">\'%1$s\'에 자식 추가</string>
+    <string name="button_save">저장</string>
+    <string name="button_cancel">취소</string>
+    <string name="menu_edit">수정</string>
+    <string name="menu_add_child">자식 노드 추가</string>
+    <string name="menu_delete">삭제</string>
+    <string name="expand_icon_description">펼치기/접기 아이콘</string>
+    <string name="menu_open_file">파일 열기</string>
+    <string name="menu_save_file">파일 저장</string>
+    <string name="menu_save_as">다른 이름으로 저장</string>
+</resources>

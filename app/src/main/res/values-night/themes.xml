@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AndroidJSONEditor" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
 
-        <!-- 구문 강조 속성에 라이트 모드용 색상 연결 -->
+        <!-- 구문 강조 속성에 다크 모드용 색상 연결 -->
         <item name="syntaxKeyColor">@color/syntax_key</item>
         <item name="syntaxStringColor">@color/syntax_string</item>
         <item name="syntaxNumberColor">@color/syntax_number</item>
@@ -13,7 +13,5 @@
         <item name="syntaxAttributeColor">@color/syntax_attribute</item>
         <item name="syntaxDefaultTextColor">@color/syntax_default_text</item>
     </style>
-
-    <style name="Theme.AndroidJSONEditor" parent="Base.Theme.AndroidJSONEditor" />
 </resources>
     

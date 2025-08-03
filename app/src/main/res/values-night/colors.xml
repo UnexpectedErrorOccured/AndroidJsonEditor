@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 구문 강조용 색상 (다크 모드) -->
+    <!-- 이 색상들은 어두운 배경에 최적화되어 있습니다. -->
+    <color name="syntax_string">#6A8759</color>
+    <color name="syntax_number">#6897BB</color>
+    <color name="syntax_boolean">#CC7832</color>
+    <color name="syntax_null">#808080</color>
+    <color name="syntax_key">#9876AA</color>
+    <color name="syntax_attribute">#FFC66D</color>
+    <color name="syntax_default_text">#A9B7C6</color>
+</resources>

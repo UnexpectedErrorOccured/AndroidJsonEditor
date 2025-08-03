@@ -9,12 +9,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- 구문 강조용 색상 -->
-    <color name="syntax_string">#6A8759</color>
-    <color name="syntax_number">#6897BB</color>
-    <color name="syntax_boolean">#CC7832</color>
-    <color name="syntax_null">#808080</color>
-    <color name="syntax_key">#9876AA</color>
-    <color name="syntax_attribute">#FFC66D</color>
-    <color name="syntax_default_text">#A9B7C6</color> <!-- 기본 텍스트 색상 (어두운 테마용) -->
+    <!-- 구문 강조용 색상 (라이트 모드) -->
+    <color name="syntax_string">#008000</color>  <!-- 초록색 계열 -->
+    <color name="syntax_number">#0000FF</color>  <!-- 파란색 -->
+    <color name="syntax_boolean">#A52A2A</color> <!-- 갈색 -->
+    <color name="syntax_null">#808080</color>    <!-- 회색 -->
+    <color name="syntax_key">#A020F0</color>      <!-- 보라색 -->
+    <color name="syntax_attribute">#FF8C00</color> <!-- 주황색 -->
+    <color name="syntax_default_text">#121212</color> <!-- 진한 회색 -->
 </resources>

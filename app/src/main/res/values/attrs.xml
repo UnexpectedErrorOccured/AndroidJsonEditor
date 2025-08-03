@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 구문 강조용 커스텀 테마 속성 -->
+    <attr name="syntaxKeyColor" format="color" />
+    <attr name="syntaxStringColor" format="color" />
+    <attr name="syntaxNumberColor" format="color" />
+    <attr name="syntaxBooleanColor" format="color" />
+    <attr name="syntaxNullColor" format="color" />
+    <attr name="syntaxAttributeColor" format="color" />
+    <attr name="syntaxDefaultTextColor" format="color" />
+</resources>
+    

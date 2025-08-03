@@ -37,7 +37,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/node_name"
@@ -45,31 +46,41 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="?attr/syntaxKeyColor"
                 tools:text="name:" />
 
-            <!-- 수정된 부분: XML 속성 값 내의 따옴표는 &quot; 로 이스케이프 처리합니다. -->
             <TextView
                 android:id="@+id/node_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:textColor="#008577"
+                android:textColor="?attr/syntaxDefaultTextColor"
                 android:layout_marginStart="8dp"
                 tools:text="&quot;DataEditor&quot;" />
+
+            <!-- 자식 노드의 개수를 표시할 TextView (새로 추가) -->
+            <TextView
+                android:id="@+id/child_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="?attr/syntaxNullColor"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                tools:text="[10]" />
+
         </LinearLayout>
 
-        <!-- 수정된 부분: XML 속성 값 내의 따옴표는 &quot; 로 이스케이프 처리합니다. -->
         <TextView
             android:id="@+id/node_attributes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="#00529B"
             android:textStyle="italic"
+            android:textColor="?attr/syntaxAttributeColor"
             android:layout_marginTop="2dp"
             android:visibility="gone"
-            tools:visibility="visible"
             tools:text="version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;" />
     </LinearLayout>
 
